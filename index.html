@@ -25,7 +25,8 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem}@media(max-width:600px)
 <section class="hero"><div class="wrap">
 <div class="kicker">Campanha solidária • Porto Alegre / RS</div>
 <h1>PRECISAMOS DA SUA AJUDA!</h1>
-<p class="lead">Um incêndio atingiu o estacionamento da nossa oficina. Ajude a reconstruir o ganha-pão de um pai de família que ama motocicletas e, principalmente, a recuperar as motos dos nossos clientes.</p>
+<p class="lead">Na madrugada de 8 para 9 de novembro de 2026, um incêndio atingiu o estacionamento da Hyosung Performance e danificou 11 motocicletas de clientes. Precisamos de ajuda para enfrentar os prejuízos e reconstruir nosso caminho.</p>
+<div class="pix" style="margin-top:26px"><div class="kicker">AJUDE AGORA • PIX</div><div class="small">COPIE A CHAVE PIX</div><div class="key" id="pixkey-top">6487256@vakinha.com.br</div><button class="copy" onclick="copyPixTop()">COPIAR CHAVE PIX</button><div class="notice" id="feedback-top" aria-live="polite">Copie a chave e cole no aplicativo do seu banco.</div></div>
 <div class="actions"><a class="btn" href="#contribuir">QUERO AJUDAR</a><a class="btn alt" href="#historia">CONHEÇA NOSSA HISTÓRIA</a><a class="btn alt" href="https://wa.me/5551993883149" target="_blank" rel="noopener">FALAR PELO WHATSAPP</a></div>
 </div></section>
 <section><div class="wrap"><div class="grid">
@@ -47,7 +48,7 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem}@media(max-width:600px)
 </div></section>
 <section id="contribuir"><div class="wrap">
 <h2>Faça sua contribuição</h2><p>Toda ajuda faz diferença. Contribua com qualquer valor ou compartilhe esta campanha com amigos, familiares e grupos de motociclistas.</p>
-<div class="pix"><div class="kicker">Contribuição via PIX</div><div class="small">CHAVE PIX</div><div class="key" id="pixkey">6487256@vakinha.com.br</div><button class="copy" onclick="copyPix()">COPIAR CHAVE PIX</button><div class="notice" id="feedback" aria-live="polite">Depois de copiar, abra o aplicativo do seu banco e faça o PIX.</div></div>
+<div class="pix"><div class="kicker">Contribuição via PIX</div><div class="small">CHAVE PIX</div><div class="key">6487256@vakinha.com.br</div><button class="copy" onclick="copyPix()">COPIAR CHAVE PIX</button><div class="notice" id="feedback" aria-live="polite">Depois de copiar, abra o aplicativo do seu banco e faça o PIX.</div></div>
 <p class="notice">Confira o nome do recebedor exibido pelo seu banco antes de confirmar a transferência. Esta página não processa pagamentos nem confirma doações automaticamente.</p>
 </div></section>
 <section><div class="wrap"><h2>Transparência e agradecimento</h2>
@@ -56,8 +57,10 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem}@media(max-width:600px)
 </main>
 <footer><div class="wrap"><strong>Hyosung Performance</strong><br>Av. Saturnino de Brito, 385 - Vila Jardim, Porto Alegre - RS, 91320-000<br>Telefone/WhatsApp: (51) 99388-3149</div></footer>
 <script>
-function copyPix(){const key=document.getElementById('pixkey').innerText,fb=document.getElementById('feedback');
-if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(key).then(()=>fb.textContent='Chave PIX copiada! Abra o aplicativo do seu banco.').catch(()=>fallback(key));}
-else fallback(key);}
-function fallback(key){const a=document.createElement('textarea');a.value=key;document.body.appendChild(a);a.select();try{document.execCommand('copy');document.getElementById('feedback').textContent='Chave PIX copiada! Abra o aplicativo do seu banco.';}catch(e){document.getElementById('feedback').textContent='Selecione e copie manualmente a chave PIX acima.';}a.remove();}
+function copyPixTop(){copyKey(document.getElementById('pixkey-top').innerText,document.getElementById('feedback-top'));}
+function copyPix(){copyKey('6487256@vakinha.com.br',document.getElementById('feedback'));}
+function copyKey(key,fb){
+if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(key).then(()=>fb.textContent='Chave PIX copiada! Abra o aplicativo do seu banco.').catch(()=>fallback(key,fb));}
+else fallback(key,fb);}
+function fallback(key,fb){const a=document.createElement('textarea');a.value=key;document.body.appendChild(a);a.select();try{document.execCommand('copy');fb.textContent='Chave PIX copiada! Abra o aplicativo do seu banco.';}catch(e){fb.textContent='Selecione e copie manualmente a chave PIX acima.';}a.remove();}
 </script></body></html>
