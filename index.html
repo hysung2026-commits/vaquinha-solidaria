@@ -28,7 +28,7 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem}
 <main>
 <section class="hero">
 <div class="wrap">
-<img class="flyer" src="imagens/cartaz-campanha.jpg" alt="Cartaz da campanha solidária da Hyosung Performance">
+<img class="flyer" data-image-asset="cartaz" alt="Cartaz da campanha solidária da Hyosung Performance">
 <div class="kicker">Campanha solidária • Porto Alegre / RS</div>
 <h1>PRECISAMOS DA SUA AJUDA!</h1>
 <p class="lead">Na madrugada de 8 para 9 de novembro de 2026, um incêndio atingiu o estacionamento da Hyosung Performance e danificou 11 motocicletas de clientes. Precisamos de ajuda para enfrentar os prejuízos e reconstruir nosso caminho.</p>
@@ -56,9 +56,9 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem}
 <p>A oficina tem cinco anos de atividade. Por trás do negócio existe um pai de duas filhas, que é o único funcionário e depende diretamente do trabalho da oficina para sustentar sua família.</p>
 <p>Neste momento, a prioridade é recuperar os prejuízos causados pelo incêndio e, principalmente, buscar uma solução para as motocicletas pertencentes aos clientes. Qualquer valor é bem-vindo. Se não puder contribuir financeiramente, compartilhar esta campanha também ajuda muito.</p>
 <div class="gallery">
-<figure><img src="imagens/danos-motocicletas.jpg" alt="Motocicletas e estruturas atingidas pelo incêndio"><figcaption>Motocicletas e estruturas atingidas</figcaption></figure>
-<figure><img src="imagens/incendio-noite.jpg" alt="Incêndio no estacionamento durante a noite"><figcaption>Registro do incêndio</figcaption></figure>
-<figure><img src="imagens/estacionamento-apos-incendio.jpg" alt="Estacionamento após o incêndio"><figcaption>Estacionamento após o incêndio</figcaption></figure>
+<figure><img data-image-asset="danos" alt="Motocicletas e estruturas atingidas pelo incêndio"><figcaption>Motocicletas e estruturas atingidas</figcaption></figure>
+<figure><img data-image-asset="incendio" alt="Incêndio no estacionamento durante a noite"><figcaption>Registro do incêndio</figcaption></figure>
+<figure><img data-image-asset="estacionamento" alt="Estacionamento após o incêndio"><figcaption>Estacionamento após o incêndio</figcaption></figure>
 </div>
 <p class="notice">As fotografias mostram o local e os danos após o incêndio. A galeria se adapta à tela do celular e do computador.</p>
 </div></section>
@@ -82,6 +82,29 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem}
 </main>
 <footer><div class="wrap"><strong>Hyosung Performance</strong><br>Av. Saturnino de Brito, 385 - Vila Jardim, Porto Alegre - RS, 91320-000<br>Telefone/WhatsApp: (51) 99388-3149</div></footer>
 <script>
+const imageParts = {
+  cartaz: ["imagens/cartaz-b01.txt","imagens/cartaz-b02.txt","imagens/cartaz-b03.txt","imagens/cartaz-b04.txt","imagens/cartaz-part-02.txt","imagens/cartaz-part-03.txt"],
+  danos: ["imagens/danos-motocicletas.jpg.b64"],
+  incendio: ["imagens/incendio-noite-part-01.txt","imagens/incendio-noite-part-02.txt"],
+  estacionamento: ["imagens/parking-a01.txt","imagens/parking-a02.txt","imagens/parking-a03.txt","imagens/parking-a04.txt","imagens/parking-a05.txt","imagens/parking-a06.txt","imagens/parking-a07.txt"]
+};
+async function carregarImagensDaCampanha(){
+  const imagens = document.querySelectorAll("img[data-image-asset]");
+  await Promise.all(Array.from(imagens).map(async img => {
+    try {
+      const arquivos = imageParts[img.dataset.imageAsset];
+      const partes = await Promise.all(arquivos.map(async caminho => {
+        const resposta = await fetch(caminho);
+        if (!resposta.ok) throw new Error("Não foi possível abrir " + caminho);
+        return (await resposta.text()).trim();
+      }));
+      img.src = "data:image/jpeg;base64," + partes.join("");
+    } catch (erro) {
+      img.alt = img.alt + " — foto temporariamente indisponível";
+    }
+  }));
+}
+carregarImagensDaCampanha();
 function copyPix(){
 const key='6487256@vakinha.com.br';
 const fbs=[document.getElementById('feedback'),document.getElementById('feedback-bottom')];
